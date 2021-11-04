@@ -146,7 +146,9 @@ def dealerRound():
     score = calculate(dealer)
     refresh("dealer")
     time.sleep(1)
-    if score < 17:
+    if calculate(player) > 21:
+        endRound()
+    elif score < 17:
         buy(dealer)
         dealerRound()
     elif score > 21:
@@ -186,6 +188,8 @@ def gameRound():
     print("Tokens:", tokens)
     bet = input("how many tokens do you want to bet: ")
     if bet.isdigit() == False:
+        gameRound()
+    if int(bet) != float(bet):
         gameRound()
     bet = int(bet)
     tokens -= bet
