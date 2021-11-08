@@ -144,9 +144,10 @@ def board(turn, winner):
 
 def dealerRound():
     score = calculate(dealer)
+    playerScore = calculate(player)
     refresh("dealer")
     time.sleep(1)
-    if calculate(player) > 21:
+    if playerScore > 21 or playerScore < score:
         endRound()
     elif score < 17:
         buy(dealer)
@@ -160,15 +161,16 @@ def dealerRound():
 def endRound():
     win = winner()
     refresh("dealer", win)
-    ans = input("Do you want to play another round(Y/N):").lower()
-    if ans == "y":
-        empty()
-        gameRound()
-    elif ans == "n":
-        clear()
-        print("You ended with", tokens ,"tokens")
-        input("Press ENTER to exit game")
-        exit()
+    while True:
+        ans = input("Do you want to play another round(Y/N):").lower()
+        if ans == "y":
+            empty()
+            gameRound()
+        elif ans == "n":
+            clear()
+            print("You ended with", tokens ,"tokens")
+            input("Press ENTER to exit game")
+            exit()
 
 def winner():
     scorePlayer = calculate(player)
